@@ -1,0 +1,56 @@
+diff -u _UPSTREAM/wsgiserver/__init__.py wsgiserver/__init__.py
+--- _UPSTREAM/wsgiserver/__init__.py	2010-08-01 22:28:44.843393150 +0200
++++ wsgiserver/__init__.py	2010-06-30 22:42:03.034373330 +0200
+@@ -68,6 +68,7 @@
+ """
+ 
+ CRLF = '\r\n'
++VERBOSE = 0
+ import os
+ import Queue
+ import re
+@@ -166,7 +167,8 @@
+             try:
+                 k, v = line.split(":", 1)
+             except ValueError:
+-                raise ValueError("Illegal header line.")
++                #raise ValueError("Illegal header line.")
++                continue
+             # TODO: what about TE and WWW-Authenticate?
+             k = k.strip().title()
+             v = v.strip()
+@@ -1237,6 +1239,16 @@
+                 
+                 request_seen = True
+                 req.respond()
++
++                if VERBOSE:
++                    now = time.time()
++                    year, month, day, hh, mm, ss, x, y, z = time.localtime(now)
++                    monthname = [None, 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
++                    time_str = "%02d/%3s/%04d %02d:%02d:%02d" % (day, monthname[month], year, hh, mm, ss)
++                    #from pprint import pprint
++                    #pprint(req.__dict__)
++                    print '[%s] "%s %s %s" %s' % (time_str, req.method, req.path, req.request_protocol, req.status.split(' ')[0])
++                
+                 if req.close_connection:
+                     return
+         except socket.error, e:
+@@ -1882,7 +1894,7 @@
+     wsgi_version = (1, 1)
+     
+     def __init__(self, bind_addr, wsgi_app, numthreads=10, server_name=None,
+-                 max=-1, request_queue_size=5, timeout=10, shutdown_timeout=5):
++                 max=-1, request_queue_size=5, timeout=10, shutdown_timeout=5, verbose=0):
+         self.requests = ThreadPool(self, min=numthreads or 1, max=max)
+         self.wsgi_app = wsgi_app
+         self.gateway = wsgi_gateways[self.wsgi_version]
+@@ -1895,6 +1907,8 @@
+         
+         self.timeout = timeout
+         self.shutdown_timeout = shutdown_timeout
++        global VERBOSE
++        VERBOSE = verbose
+     
+     def _get_numthreads(self):
+         return self.requests.min
