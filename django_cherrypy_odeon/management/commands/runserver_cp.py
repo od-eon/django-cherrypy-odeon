@@ -5,7 +5,7 @@ from django.conf import settings
 from wsgiserver import CherryPyWSGIServer, WSGIPathInfoDispatcher
 from optparse import OptionParser, make_option
 import os.path, sys
-from django_cpserver.management.commands import runcpserver
+from django_cherrypy_odeon.management.commands import runcpserver
 
 runcpserver.CPSERVER_HELP = runcpserver.CPSERVER_HELP.replace('runcpserver', 'runserver_cp')
 

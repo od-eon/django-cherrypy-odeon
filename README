@@ -1,4 +1,4 @@
-django-cherrypy-odeon is a Django app that allows you to run the cherrypy WSGI server as a production or a development server (replacing the 'runserver' command with a threaded cherrypy instance).
+django-cherrypy-odeon is a Django app that allows you to run the cherrypy WSGI server as a production or as a development server (replacing the 'runserver' command with a threaded cherrypy instance).
 
 Installation:
 - add wsgiserver/ from the cherrypy project in your python path. The bundled version was patched to ignore malformed HTTP headers and to optionally output the served path to mimic devserver's behavior, so it's recommended over the upstream version.
