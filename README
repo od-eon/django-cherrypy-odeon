@@ -11,5 +11,6 @@ Usage:
 
 This is a fork of django-cpserver ( http://github.com/lincolnloop/django-cpserver ) since before the BSD licence was added so we took the liberty of licensing it under GPLv3.
 
+website: http://od-eon.com/labs/django-cherrypy-odeon/
 For technical support questions contact us at developers@od-eon.com
 
