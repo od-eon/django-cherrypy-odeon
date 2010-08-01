@@ -1,0 +1,62 @@
+#! /bin/sh
+#
+# start/stop Django web server
+
+### BEGIN INIT INFO
+# Provides:          cherrypy
+# Required-Start:    $network
+# Required-Stop:     $network
+# Should-Start:      $named
+# Should-Stop:       $named
+# Default-Start:     S 2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start the cherrypy python server
+# Description:       Start the cherrypy python server
+### END INIT INFO
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+NAME=cherrypy
+DAEMON=/path/to/cherrypy_server.sh
+USER=foobar
+
+. /lib/lsb/init-functions
+
+set -e
+
+test -x $DAEMON || exit 0
+
+
+case "$1" in
+  start)	
+	printf "Starting web server: %s\t" "$NAME"
+	su $USER -s /bin/sh -c "$DAEMON start"
+	;;
+
+  stop)
+	printf "Stopping web server: %s\t" "$NAME"
+	su $USER -s /bin/sh -c "$DAEMON stop"
+	;;
+
+  restart)
+	su $USER -s /bin/sh -c "$DAEMON restart"
+	;;
+
+  status)
+	;;
+
+  *)
+	N=/etc/init.d/$NAME
+	echo "Usage: $N {start|stop|restart}" >&2
+	exit 1
+	;;
+esac
+
+if [ $? = 0 ]; then
+        echo .
+        exit 0
+else
+        echo failed
+        exit 1
+fi
+
+exit 0

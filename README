@@ -8,6 +8,9 @@ Usage:
 - "./manage.py runcpserver help" - for the production server
 - "./manage.py runserver_cp help" - for the development server
 
+Additional files:
+- cherrypy_server.sh - helper script for starting/stopping/restarting the production server. It should stay in the Django project dir
+- cherrypy_init_script.debian and cherrypy_init_script.gentoo - example init scripts for Debian and Gentoo using cherrypy_server.sh
 
 This is a fork of django-cpserver ( http://github.com/lincolnloop/django-cpserver ) since before the BSD licence was added so we took the liberty of licensing it under GPLv3.
 

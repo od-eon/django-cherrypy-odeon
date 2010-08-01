@@ -1,0 +1,27 @@
+#!/sbin/runscript
+
+DAEMON=/path/to/cherrypy_server.sh
+USER=foobar
+VARDIR=/var/run/django
+
+opts="reload"
+
+start() {
+	ebegin "Starting cherrypy web server"
+	[ -d $VARDIR ] || { mkdir $VARDIR; chown $USER:$USER $VARDIR; } # for the PID file
+	su $USER -s /bin/sh -c "$DAEMON start"
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping cherrypy web server"
+	su $USER -s /bin/sh -c "$DAEMON stop"
+	eend $?
+}
+
+reload() {
+	ebegin "Restarting cherrypy web server"
+	su $USER -s /bin/sh -c "$DAEMON restart"
+	eend $?
+}
+
