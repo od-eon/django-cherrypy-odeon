@@ -35,7 +35,7 @@ Optional CherryPy server settings: (setting=value)
   request_queue_size=NUMBER    maximum number of queued connections (default 5)
 
 Examples:
-  Run a "standard" CherryPy server server
+  Run a "standard" CherryPy server
     $ manage.py runcpserver
 
   Run a CherryPy server on port 80
