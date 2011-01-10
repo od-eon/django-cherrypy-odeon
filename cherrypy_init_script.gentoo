@@ -6,6 +6,10 @@ VARDIR=/var/run/django
 
 opts="reload"
 
+depend() {
+        need net postgresql
+}
+
 start() {
 	ebegin "Starting cherrypy web server"
 	[ -d $VARDIR ] || { mkdir $VARDIR; chown $USER:$USER $VARDIR; } # for the PID file
